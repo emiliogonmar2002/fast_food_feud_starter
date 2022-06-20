@@ -6,6 +6,7 @@ import "./App.css"
 import Header from "./components/Header/Header"
 import Instructions from "./components/Instructions/Instructions"
 import Chip from "./components/Chip/Chip"
+import NutritionalLabel from "./components/NutritionalLabel/NutritionalLabel"
 
 // don't move this!
 export const appInfo = {
@@ -53,14 +54,14 @@ export function App() {
       setSelectedMenuItem("")
       return;
     }
-    setSelectedMenuItem(item)
+    setSelectedMenuItem(menuItem)
     return;
   }
 
   let currentMenuItems = data.filter(
-    (item) => (
-    item.food_category === selectedCategory && 
-    item.restaurant === selectedRestaurant)
+    (menuItem) => (
+    menuItem.food_category === selectedCategory && 
+    menuItem.restaurant === selectedRestaurant)
   );
 
   return (
@@ -112,17 +113,22 @@ export function App() {
           <div className="MenuItemButtons menu-items">
             <h2 className="title">Menu Items</h2>
             {/* YOUR CODE HERE */}
-            {currentMenuItems.map((item) => (
+            {currentMenuItems.map((menuItem) => (
               <Chip 
-                key={item.item_name}
-                label={item.item_name}
-                onClick={() => handleMenuItemClick(item)}
+                key={menuItem.item_name}
+                label={menuItem.item_name}
+                onClick={() => handleMenuItemClick(menuItem)}
+                isActive={selectedMenuItem===menuItem ? true : false}
                 />
             ))}
           </div>
 
           {/* NUTRITION FACTS */}
-          <div className="NutritionFacts nutrition-facts">{/* YOUR CODE HERE */}</div>
+          <div className="NutritionFacts nutrition-facts">
+            <NutritionalLabel 
+              selectedMenuItem = {selectedMenuItem}
+              />
+          </div>
         </div>
 
         <div className="data-sources">
